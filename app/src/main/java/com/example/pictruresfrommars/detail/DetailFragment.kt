@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.pictruresfrommars.R
+import com.example.pictruresfrommars.databinding.DetailFragmentBinding
 
 class DetailFragment : Fragment() {
 
@@ -16,7 +17,10 @@ class DetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.detail_fragment, container, false)
+
+        val binding =DetailFragmentBinding.inflate(inflater,container,false)
+           binding.lifecycleOwner=this
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
