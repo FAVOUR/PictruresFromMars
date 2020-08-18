@@ -3,6 +3,11 @@ package com.example.pictruresfrommars.overview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.pictruresfrommars.network.MarsApi
+import com.example.pictruresfrommars.network.MarsApiService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class OverViewViewModel : ViewModel() {
     // The internal MutableLiveData String that stores the most recent response
@@ -23,6 +28,17 @@ class OverViewViewModel : ViewModel() {
      * Sets the value of the status LiveData to the Mars API status.
      */
     private fun getMarsRealEstateProperties() {
-        _response.value = "Set the Mars API Response here!"
+        MarsApi.retrofitService.getProperties().enqueue(
+            object :Callback<String>{
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                   _response.value="Failure ${t.localizedMessage}"
+                }
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    _response.value = response.body()
+                }
+
+            }
+        )
     }
 }
