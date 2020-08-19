@@ -25,7 +25,7 @@ val moshi =Moshi.Builder()
 
 interface MarsApiService{
     @GET("realestate")
-    suspend fun getProperties(): List<MarsProperty>
+    suspend fun getProperties(): Deferred<List<MarsProperty>>
 }
 
 

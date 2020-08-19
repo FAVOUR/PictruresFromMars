@@ -40,10 +40,14 @@ class OverViewViewModel : ViewModel() {
     private fun getMarsRealEstateProperties() {
 
        coroutineScope.launch {
-        var listResult =  MarsApi.retrofitService.getProperties()
+        var getPropertiesDeferred =  MarsApi.retrofitService.getProperties()
 
 
            try {
+
+               // Await the completion of our Retrofit request
+               var listResult = getPropertiesDeferred.await()
+
                _response.value =
                    "Success: ${listResult.size} Mars properties retrieved"
            } catch (e: Exception) {
