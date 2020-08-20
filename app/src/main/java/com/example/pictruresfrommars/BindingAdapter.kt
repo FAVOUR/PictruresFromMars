@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions
     fun setImage(imageView :ImageView,imageUrl:String?){
     imageUrl?.let {
 
-        var proposedUri = imageUrl. toUri().buildUpon().scheme("https").build()
+        var proposedUri = imageUrl.toUri().buildUpon().scheme("https").build()
             Glide.with(imageView.context)
                 .load(proposedUri)
                 .apply(RequestOptions()
