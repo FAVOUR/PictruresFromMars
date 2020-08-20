@@ -23,6 +23,12 @@ class OverViewViewModel : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
+
+    private val _property =MutableLiveData<MarsProperty>()
+     val property :LiveData<MarsProperty>
+      get() = _property
+
+
     private val viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
@@ -50,6 +56,11 @@ class OverViewViewModel : ViewModel() {
 
                _response.value =
                    "Success: ${listResult.size} Mars properties retrieved"
+
+               if (listResult.size < 0 ){
+                   _property.value=listResult[0]
+               }
+
            } catch (e: Exception) {
                _response.value = "Failure: ${e.message}"
            }
