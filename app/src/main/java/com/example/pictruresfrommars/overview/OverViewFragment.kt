@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.pictruresfrommars.R
 import com.example.pictruresfrommars.databinding.FragmentOverviewBinding
+import com.example.pictruresfrommars.databinding.GridViewItemBinding
 
 class OverViewFragment : Fragment() {
 
@@ -28,7 +29,8 @@ class OverViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-          val binding = FragmentOverviewBinding.inflate(layoutInflater)
+//          val binding = FragmentOverviewBinding.inflate(layoutInflater)
+          val binding = GridViewItemBinding.inflate(layoutInflater)
          binding.lifecycleOwner =this
 
         // Giving the binding access to the OverviewViewModel
