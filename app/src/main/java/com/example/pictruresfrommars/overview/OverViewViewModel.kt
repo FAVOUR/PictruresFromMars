@@ -1,5 +1,6 @@
 package com.example.pictruresfrommars.overview
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -57,7 +58,8 @@ class OverViewViewModel : ViewModel() {
                _response.value =
                    "Success: ${listResult.size} Mars properties retrieved"
 
-               if (listResult.size < 0 ){
+               if (listResult.size > 0 ){
+                   Log.e("Checking ", "getMarsRealEstateProperties:  got response " )
                    _property.value=listResult[0]
                }
 

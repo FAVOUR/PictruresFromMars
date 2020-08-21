@@ -16,9 +16,9 @@ import com.bumptech.glide.request.RequestOptions
         var proposedUri = imageUrl.toUri().buildUpon().scheme("https").build()
             Glide.with(imageView.context)
                 .load(proposedUri)
-//                .apply(RequestOptions()
-//                    .placeholder(R.drawable.loading_animation)
-//                    .error(R.drawable.ic_broken_image))
+                .apply(RequestOptions()
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image))
                 .into(imageView)
 
 

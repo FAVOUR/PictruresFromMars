@@ -30,7 +30,7 @@ class OverViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 //          val binding = FragmentOverviewBinding.inflate(layoutInflater)
-          val binding = GridViewItemBinding.inflate(layoutInflater)
+          val binding = GridViewItemBinding.inflate(inflater)
          binding.lifecycleOwner =this
 
         // Giving the binding access to the OverviewViewModel
