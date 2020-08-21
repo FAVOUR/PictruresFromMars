@@ -4,17 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.pictruresfrommars.network.MarsApi
-import com.example.pictruresfrommars.network.MarsApiService
 import com.example.pictruresfrommars.network.MarsProperty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class OverViewViewModel : ViewModel() {
     // The internal MutableLiveData String that stores the most recent response
@@ -25,9 +20,9 @@ class OverViewViewModel : ViewModel() {
         get() = _response
 
 
-    private val _property =MutableLiveData<MarsProperty>()
-     val property :LiveData<MarsProperty>
-      get() = _property
+    private val _properties =MutableLiveData<List<MarsProperty>>()
+     val properties :LiveData<List<MarsProperty>>
+      get() = _properties
 
 
     private val viewModelJob = Job()
@@ -58,10 +53,9 @@ class OverViewViewModel : ViewModel() {
                _response.value =
                    "Success: ${listResult.size} Mars properties retrieved"
 
-               if (listResult.size > 0 ){
-                   Log.e("Checking ", "getMarsRealEstateProperties:  got response " )
-                   _property.value=listResult[0]
-               }
+
+                   _properties.value=listResult
+
 
            } catch (e: Exception) {
                _response.value = "Failure: ${e.message}"

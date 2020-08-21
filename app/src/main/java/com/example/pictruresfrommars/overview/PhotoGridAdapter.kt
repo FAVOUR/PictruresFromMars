@@ -17,7 +17,59 @@
 
 package com.example.pictruresfrommars.overview
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.example.pictruresfrommars.databinding.GridViewItemBinding
+import com.example.pictruresfrommars.network.MarsProperty
 
 
+class PhotoGridAdapter() :ListAdapter<MarsProperty,PhotoGridAdapterViewHolder>(MarsPropertyDiffUtil()){
+override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoGridAdapterViewHolder {
+       return  PhotoGridAdapterViewHolder.from(parent)
+
+   }
+
+    override fun onBindViewHolder(holder: PhotoGridAdapterViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+
+
+
+    class  MarsPropertyDiffUtil : DiffUtil.ItemCallback<MarsProperty>(){
+        override fun areItemsTheSame(oldItem: MarsProperty, newItem: MarsProperty): Boolean {
+                return oldItem.id ==newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: MarsProperty, newItem: MarsProperty): Boolean {
+                  return oldItem==newItem
+        }
+
+    }
+
+
+
+}
+  class PhotoGridAdapterViewHolder (val gridViewItemBinding: GridViewItemBinding) :RecyclerView.ViewHolder(gridViewItemBinding.root){
+
+
+         fun bind(marsProperty: MarsProperty){
+
+             gridViewItemBinding.property =marsProperty
+          gridViewItemBinding.executePendingBindings()
+         }
+
+
+          companion object{
+               fun from(viewGroup: ViewGroup):PhotoGridAdapterViewHolder{
+                  val layoutInflater = LayoutInflater.from(viewGroup.context)
+                  val view = GridViewItemBinding.inflate(layoutInflater)
+                  return PhotoGridAdapterViewHolder(view)
+              }
+          }
+  }
 
 
