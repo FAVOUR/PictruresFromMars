@@ -55,7 +55,7 @@ import com.example.pictruresfrommars.overview.PhotoGridAdapter
 
           else-> {
               imageView.visibility = View.VISIBLE
-              imageView.setImageResource(R.drawable.ic_broken_image)
+              imageView.setImageResource(R.drawable.ic_connection_error)
           }
       }
 
