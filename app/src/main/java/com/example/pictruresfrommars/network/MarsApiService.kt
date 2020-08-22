@@ -34,7 +34,6 @@ val moshi =Moshi.Builder()
 interface MarsApiService{
     @GET("realestate")
      fun getProperties(@Query ("filter") filter: String): Deferred<List<MarsProperty>>
-//     fun getProperties(): Deferred<List<MarsProperty>>
 }
 
 

@@ -2,6 +2,7 @@ package com.example.pictruresfrommars.overview
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.pictruresfrommars.R
@@ -28,7 +29,9 @@ class OverViewFragment : Fragment() {
          binding.lifecycleOwner =this
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
-        binding.photosGrid.adapter = PhotoGridAdapter()
+        binding.photosGrid.adapter = PhotoGridAdapter(MarsPropertyListener {
+            Toast.makeText(requireContext(),"I have been clicked, I cost  ${it.price}",Toast.LENGTH_SHORT).show()
+        })
 
         return binding.root
 

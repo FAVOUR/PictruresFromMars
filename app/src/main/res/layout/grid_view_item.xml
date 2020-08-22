@@ -23,14 +23,19 @@
 
     <data>
         <variable
-            name="property"
-            type="com.example.pictruresfrommars.network.MarsProperty" />
+        name="property"
+        type="com.example.pictruresfrommars.network.MarsProperty" />
+
+        <variable
+            name="itemClicked"
+            type="com.example.pictruresfrommars.overview.MarsPropertyListener" />
         <import type="android.view.View"/>
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp">
+        android:layout_height="170dp"
+        android:onClick="@{() -> itemClicked.onClick(property)}">
 
 
     <ImageView

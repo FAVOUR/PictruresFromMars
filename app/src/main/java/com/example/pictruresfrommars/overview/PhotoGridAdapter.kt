@@ -26,17 +26,16 @@ import com.example.pictruresfrommars.databinding.GridViewItemBinding
 import com.example.pictruresfrommars.network.MarsProperty
 
 
-class PhotoGridAdapter() :ListAdapter<MarsProperty,PhotoGridAdapterViewHolder>(MarsPropertyDiffUtil()){
+class PhotoGridAdapter(val marsPropertyListener: MarsPropertyListener) :ListAdapter<MarsProperty,PhotoGridAdapterViewHolder>(MarsPropertyDiffUtil()){
 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoGridAdapterViewHolder {
        return  PhotoGridAdapterViewHolder.from(parent)
 
    }
 
     override fun onBindViewHolder(holder: PhotoGridAdapterViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position),marsPropertyListener)
+
     }
-
-
 
 
     class  MarsPropertyDiffUtil : DiffUtil.ItemCallback<MarsProperty>(){
@@ -56,10 +55,11 @@ override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoGridAdap
   class PhotoGridAdapterViewHolder (val gridViewItemBinding: GridViewItemBinding) :RecyclerView.ViewHolder(gridViewItemBinding.root){
 
 
-         fun bind(marsProperty: MarsProperty){
+         fun bind(marsProperty: MarsProperty, marsPropertyListener: MarsPropertyListener){
 
              gridViewItemBinding.property =marsProperty
-          gridViewItemBinding.executePendingBindings()
+             gridViewItemBinding.itemClicked=marsPropertyListener
+             gridViewItemBinding.executePendingBindings()
          }
 
 
@@ -71,5 +71,11 @@ override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoGridAdap
               }
           }
   }
+
+
+     class  MarsPropertyListener( val clickListener :( marsProperty:MarsProperty) -> Unit){
+
+       fun onClick( marsProperty:MarsProperty) = clickListener(marsProperty)
+   }
 
 
