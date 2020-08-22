@@ -1,6 +1,5 @@
 package com.example.pictruresfrommars.overview
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,10 +28,10 @@ class OverViewViewModel : ViewModel() {
       get() = _properties
 
 
-    private val _state =MutableLiveData<MarsAPIStatus>()
+    private val _status =MutableLiveData<MarsAPIStatus>()
 
-    val state :LiveData<MarsAPIStatus>
-      get() = _state
+    val status :LiveData<MarsAPIStatus>
+      get() = _status
 
 
     private val viewModelJob = Job()
@@ -53,7 +52,7 @@ class OverViewViewModel : ViewModel() {
 
        coroutineScope.launch {
         var getPropertiesDeferred =  MarsApi.retrofitService.getProperties()
-         _state.value = MarsAPIStatus.LOADING
+         _status.value = MarsAPIStatus.LOADING
 
            try {
 
@@ -65,12 +64,12 @@ class OverViewViewModel : ViewModel() {
 
 
                    _properties.value=listResult
-                  _state.value = MarsAPIStatus.DONE
+                  _status.value = MarsAPIStatus.DONE
 
 
            } catch (e: Exception) {
                _response.value = "Failure: ${e.message}"
-               _state.value = MarsAPIStatus.FAILED
+               _status.value = MarsAPIStatus.FAILED
                _properties.value = null
 
            }
