@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.pictruresfrommars.R
 import com.example.pictruresfrommars.databinding.FragmentOverviewBinding
+import com.example.pictruresfrommars.network.MarsApiFilter
 
 class OverViewFragment : Fragment() {
 
@@ -50,20 +51,21 @@ class OverViewFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-         when (item.itemId){
-
-             R.id.show_all_menu ->{
-
-             }
+        viewModel.updateFilter(
+            when (item.itemId){
              R.id.show_buy_menu ->{
-
+                 MarsApiFilter.SHOW_BUY
              }
 
              R.id.show_rent_menu ->{
-
+                 MarsApiFilter.SHOW_RENT
              }
-         }
 
+          else->{
+                    MarsApiFilter.SHOW_ALL
+                }
+         }
+        )
         return super.onOptionsItemSelected(item)
     }
 

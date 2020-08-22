@@ -24,15 +24,17 @@ val moshi =Moshi.Builder()
 
 
 
-  enum class  MarsPropertyType(type :String){
-      RENT("rent")
+  enum class  MarsApiFilter(val type :String){
+      SHOW_RENT("rent"),
+      SHOW_BUY("buy"),
+      SHOW_ALL("all")
 
   }
 
 interface MarsApiService{
     @GET("realestate")
-//     fun getProperties(@Query ("filter"), ): Deferred<List<MarsProperty>>
-     fun getProperties(): Deferred<List<MarsProperty>>
+     fun getProperties(@Query ("filter") filter: String): Deferred<List<MarsProperty>>
+//     fun getProperties(): Deferred<List<MarsProperty>>
 }
 
 

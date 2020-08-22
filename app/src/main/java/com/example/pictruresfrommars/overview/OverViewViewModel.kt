@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pictruresfrommars.network.MarsApi
+import com.example.pictruresfrommars.network.MarsApiFilter
 import com.example.pictruresfrommars.network.MarsProperty
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
@@ -44,16 +45,17 @@ class OverViewViewModel : ViewModel() {
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
      */
     init {
-        getMarsRealEstateProperties()
+        getMarsRealEstateProperties(MarsApiFilter.SHOW_ALL)
     }
+
 
     /**
      * Sets the value of the status LiveData to the Mars API status.
      */
-    private fun getMarsRealEstateProperties() {
+    private fun getMarsRealEstateProperties(marsApiFilter: MarsApiFilter) {
 
        coroutineScope.launch {
-        var getPropertiesDeferred =  MarsApi.retrofitService.getProperties()
+        var getPropertiesDeferred =  MarsApi.retrofitService.getProperties(marsApiFilter.type)
          _status.value = MarsAPIStatus.LOADING
 
            try {
@@ -77,6 +79,10 @@ class OverViewViewModel : ViewModel() {
 
            }
     }
+    }
+
+    fun updateFilter(marsApiFilter: MarsApiFilter){
+        getMarsRealEstateProperties(marsApiFilter)
     }
 
 
