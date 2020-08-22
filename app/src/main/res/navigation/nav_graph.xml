@@ -41,7 +41,7 @@
 
        <argument
            android:name="selectedProperty"
-           app:argType="com.example.pictruresfrommars.overview.OverViewViewModel"/>
+           app:argType="com.example.pictruresfrommars.network.MarsProperty"/>
 
     </fragment>
 
