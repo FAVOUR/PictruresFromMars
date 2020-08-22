@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.pictruresfrommars.R
 import com.example.pictruresfrommars.databinding.FragmentOverviewBinding
 import com.example.pictruresfrommars.network.MarsApiFilter
@@ -30,6 +32,8 @@ class OverViewFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
         binding.photosGrid.adapter = PhotoGridAdapter(MarsPropertyListener {
+
+            viewModel.setPropertyForNavigation(it)
             Toast.makeText(requireContext(),"I have been clicked, I cost  ${it.price}",Toast.LENGTH_SHORT).show()
         })
 
@@ -44,6 +48,13 @@ class OverViewFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        viewModel.navigateToSelectedProperty.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {
+           findNavController().navigate(OverViewFragmentDirections.actionShowDetail(it))
+            }
+        })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -71,6 +82,8 @@ class OverViewFragment : Fragment() {
         )
         return super.onOptionsItemSelected(item)
     }
+
+
 
 
 }

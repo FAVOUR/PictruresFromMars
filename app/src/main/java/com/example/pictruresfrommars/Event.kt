@@ -1,10 +1,10 @@
 package com.example.pictruresfrommars
 
 class Event <out T>(val content : T) {
-    var hasContentBeenHandled :Boolean = false
+   private  var hasContentBeenHandled :Boolean = false
        private set // Allow external read but not write
 
-     fun getContentOnce():T?{
+     fun getContentIfNotHandled():T?{
        return  if(hasContentBeenHandled){
                 null
        }else{
@@ -12,5 +12,5 @@ class Event <out T>(val content : T) {
            content
        }
      }
-    fun  continusContent () :T  = content
+    fun  continuousContent () :T  = content
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.pictruresfrommars.Event
 import com.example.pictruresfrommars.network.MarsApi
 import com.example.pictruresfrommars.network.MarsApiFilter
 import com.example.pictruresfrommars.network.MarsProperty
@@ -15,15 +16,15 @@ import kotlinx.coroutines.launch
 
 class OverViewViewModel : ViewModel() {
     // The internal MutableLiveData String that stores the most recent response
-    private val _response = MutableLiveData<String>()
+    private var _navigateToSelectedProperty = MutableLiveData<Event<MarsProperty>>()
 
     enum class MarsAPIStatus{
      LOADING, FAILED ,DONE
     }
 
-    // The external immutable LiveData for the response String
-    val response: LiveData<String>
-        get() = _response
+    // The external immutable LiveData for the data to be passed Detail
+    val navigateToSelectedProperty: LiveData<Event<MarsProperty>>
+        get() = _navigateToSelectedProperty
 
 
     private val _properties =MutableLiveData<List<MarsProperty>>()
@@ -49,6 +50,11 @@ class OverViewViewModel : ViewModel() {
     }
 
 
+    fun setPropertyForNavigation(marsProperty: MarsProperty){
+        _navigateToSelectedProperty.value = Event(marsProperty)
+    }
+
+
     /**
      * Sets the value of the status LiveData to the Mars API status.
      */
@@ -63,17 +69,13 @@ class OverViewViewModel : ViewModel() {
                // Await the completion of our Retrofit request
                var listResult = getPropertiesDeferred.await()
 
-               _response.value =
-                   "Success: ${listResult.size} Mars properties retrieved"
-
-                  Log.e("Response" , Gson().toJson(listResult))
+//                  Log.e("Response" , Gson().toJson(listResult))
 
                    _properties.value=listResult
                   _status.value = MarsAPIStatus.DONE
 
 
            } catch (e: Exception) {
-               _response.value = "Failure: ${e.message}"
                _status.value = MarsAPIStatus.FAILED
                _properties.value = null
 
