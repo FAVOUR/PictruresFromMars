@@ -38,6 +38,11 @@
         android:name="com.example.pictruresfrommars.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/detail_fragment">
+
+       <argument
+           android:name="selectedProperty"
+           app:argType="com.example.pictruresfrommars.overview.OverViewViewModel"/>
+
     </fragment>
 
 </navigation>
