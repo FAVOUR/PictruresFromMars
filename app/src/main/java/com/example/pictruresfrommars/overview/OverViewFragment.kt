@@ -1,14 +1,11 @@
 package com.example.pictruresfrommars.overview
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import com.example.pictruresfrommars.R
 import com.example.pictruresfrommars.databinding.FragmentOverviewBinding
-import com.example.pictruresfrommars.databinding.GridViewItemBinding
 
 class OverViewFragment : Fragment() {
 
@@ -30,7 +27,6 @@ class OverViewFragment : Fragment() {
         savedInstanceState: Bundle?): View? {
           val binding = FragmentOverviewBinding.inflate(layoutInflater)
          binding.lifecycleOwner =this
-
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
         binding.photosGrid.adapter = PhotoGridAdapter()
@@ -39,9 +35,25 @@ class OverViewFragment : Fragment() {
 
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+
+
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.overflow_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
+
+
 
 }
