@@ -22,9 +22,7 @@ class OverViewFragment : Fragment() {
      * Inflates the layout with Data Binding, sets its lifecycle owner to the OverviewFragment
      * to enable Data Binding to observe LiveData, and sets up the RecyclerView with an adapter.
      */
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
           val binding = FragmentOverviewBinding.inflate(layoutInflater)
          binding.lifecycleOwner =this
         // Giving the binding access to the OverviewViewModel
@@ -38,13 +36,10 @@ class OverViewFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -53,7 +48,24 @@ class OverViewFragment : Fragment() {
     }
 
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
+         when (item.itemId){
+
+             R.id.show_all_menu ->{
+
+             }
+             R.id.show_buy_menu ->{
+
+             }
+
+             R.id.show_rent_menu ->{
+
+             }
+         }
+
+        return super.onOptionsItemSelected(item)
+    }
 
 
 }

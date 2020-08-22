@@ -10,5 +10,5 @@ data class MarsProperty(
     val price: Double
 ){
     val isRental :Boolean
-            get()= type == "Rent"
+            get()= type == "rent"
 }

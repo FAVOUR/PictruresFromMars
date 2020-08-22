@@ -1,10 +1,12 @@
 package com.example.pictruresfrommars.overview
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pictruresfrommars.network.MarsApi
 import com.example.pictruresfrommars.network.MarsProperty
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -62,6 +64,7 @@ class OverViewViewModel : ViewModel() {
                _response.value =
                    "Success: ${listResult.size} Mars properties retrieved"
 
+                  Log.e("Response" , Gson().toJson(listResult))
 
                    _properties.value=listResult
                   _status.value = MarsAPIStatus.DONE
