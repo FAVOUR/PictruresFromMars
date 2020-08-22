@@ -15,6 +15,10 @@ class OverViewViewModel : ViewModel() {
     // The internal MutableLiveData String that stores the most recent response
     private val _response = MutableLiveData<String>()
 
+    enum class MarsAPIStatus{
+     LOADING, FAILED ,DONE
+    }
+
     // The external immutable LiveData for the response String
     val response: LiveData<String>
         get() = _response
@@ -23,6 +27,12 @@ class OverViewViewModel : ViewModel() {
     private val _properties =MutableLiveData<List<MarsProperty>>()
      val properties :LiveData<List<MarsProperty>>
       get() = _properties
+
+
+    private val _state =MutableLiveData<MarsAPIStatus>()
+
+    val state :LiveData<MarsAPIStatus>
+      get() = _state
 
 
     private val viewModelJob = Job()
@@ -43,7 +53,7 @@ class OverViewViewModel : ViewModel() {
 
        coroutineScope.launch {
         var getPropertiesDeferred =  MarsApi.retrofitService.getProperties()
-
+         _state.value = MarsAPIStatus.LOADING
 
            try {
 
@@ -55,10 +65,14 @@ class OverViewViewModel : ViewModel() {
 
 
                    _properties.value=listResult
+                  _state.value = MarsAPIStatus.DONE
 
 
            } catch (e: Exception) {
                _response.value = "Failure: ${e.message}"
+               _state.value = MarsAPIStatus.FAILED
+               _properties.value = null
+
            }
     }
     }
