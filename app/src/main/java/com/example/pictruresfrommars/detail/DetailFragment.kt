@@ -18,15 +18,20 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
+        var marsProperty =DetailFragmentArgs.fromBundle(arguments!!).selectedProperty
+        val viewModelFactory = DetailViewModelFactory(marsProperty,requireActivity().application)
+        viewModel = ViewModelProviders.of(this,viewModelFactory).get(DetailViewModel::class.java)
+
         val binding =DetailFragmentBinding.inflate(inflater)
            binding.lifecycleOwner=this
+           binding.viewmodel =viewModel
+
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
-        // TODO: Use the ViewModel
+
     }
 
 }
